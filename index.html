@@ -304,7 +304,13 @@ body { background: var(--parchment); color: var(--ink); font-family: var(--font-
 .o-work__square-overlay { position: absolute; inset: 0; background: rgba(28,21,16,0.45); opacity: 0; transition: opacity 0.35s; display: flex; align-items: flex-end; padding: 32px; }
 .o-work__square:hover .o-work__square-overlay { opacity: 1; }
 .o-work__square-box { border: 1px solid rgba(253,248,238,0.6); padding: 20px 28px; background: rgba(28,21,16,0.3); backdrop-filter: blur(4px); }
-.o-work__square-num { font-family: var(--font-sans); font-size: 10px; letter-spacing: 0.2em; color: rgba(253,248,238,0.5); display: block; margin-bottom: 6px; }
+.o-work__square-num { font-family: var(--font-sans); font-size: 10px; letter-spacing: 0.2em; color: rgba(253,248,238,0.5); display: none; margin-bottom: 6px; }
+@media (max-width: 1023px) {
+  .o-work__square-num { display: block; color: var(--terracotta); opacity: 0.95; }
+}
+@media (hover: none) {
+  .o-work__square-num { display: block; color: var(--terracotta); opacity: 0.95; }
+}
 .o-work__square-title { font-family: var(--font-serif); font-size: 28px; font-weight: 300; color: var(--warm-white); line-height: 1.1; display: block; margin-bottom: 4px; }
 .o-work__square-count { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(253,248,238,0.45); }
 /* Detail page */
@@ -328,12 +334,14 @@ body { background: var(--parchment); color: var(--ink); font-family: var(--font-
 .o-detail__tile { position: relative; overflow: hidden; cursor: pointer; background: var(--espresso); }
 .o-detail__tile-bg { position: absolute; inset: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #2a1a0a, #1a1005); transition: transform 0.4s ease; }
 .o-detail__tile:hover .o-detail__tile-bg { transform: scale(1.04); }
-.o-detail__tile-hover { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; background: rgba(10,9,5,0.65); }
+.o-detail__tile-hover { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; background: rgba(10,9,5,0.65); z-index: 1; pointer-events: none; }
 .o-detail__tile:hover .o-detail__tile-hover { opacity: 1; }
+.o-detail__tile-hover--always { opacity: 1; background: rgba(10,9,5,0.45); }
 .o-detail__tile-box { border: 1px solid rgba(253,248,238,0.4); padding: 24px 28px; background: rgba(28,21,16,0.6); backdrop-filter: blur(8px); text-align: center; max-width: 80%; }
 .o-detail__tile-name { font-family: var(--font-serif); font-size: 22px; font-weight: 300; color: var(--warm-white); display: block; margin-bottom: 8px; }
 .o-detail__tile-house { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(253,248,238,0.55); display: block; margin-bottom: 6px; }
 .o-detail__tile-role { font-family: var(--font-sans); font-size: 10px; letter-spacing: 0.08em; color: var(--terracotta); display: block; }
+.o-detail__tile-badge { font-family: var(--font-sans); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terracotta); display: block; margin-bottom: 10px; }
 /* Project modal */
 .o-proj-modal { display: none; position: fixed; inset: 0; background: rgba(10,9,5,0.97); z-index: 300; }
 .o-proj-modal.active { display: flex; }
@@ -769,6 +777,68 @@ html, body { max-width: 100%; overflow-x: hidden; }
 }
 
 /* ══════════════════════════════════════════════════
+   MOBILE + iPAD — always-visible labels (no hover)
+   Phones & tablets up to 1023px; iPad Pro landscape via pointer:coarse below
+══════════════════════════════════════════════════ */
+@media (max-width: 1023px) {
+  .o-work__square .o-work__square-overlay {
+    opacity: 1;
+    background: linear-gradient(to top, rgba(28,21,16,0.92) 0%, rgba(28,21,16,0.35) 50%, transparent 72%);
+    align-items: flex-end;
+    padding: 20px 18px;
+  }
+  .o-work__square-box { border: none; background: transparent; backdrop-filter: none; padding: 0; }
+  .o-work__square-count { color: rgba(253,248,238,0.7); }
+
+  #films-grid .o-detail__tile .o-detail__tile-hover,
+  #commercials-grid .o-detail__tile .o-detail__tile-hover {
+    opacity: 1;
+    align-items: flex-end;
+    justify-content: stretch;
+    background: linear-gradient(to top, rgba(10,9,5,0.94) 0%, rgba(10,9,5,0.55) 50%, transparent 78%);
+    padding: 10px 8px 12px;
+  }
+  #films-grid .o-detail__tile-hover--always,
+  #films-grid .o-detail__tile .o-detail__tile-hover--always {
+    align-items: flex-end;
+    justify-content: stretch;
+    background: linear-gradient(to top, rgba(10,9,5,0.94) 0%, rgba(10,9,5,0.55) 50%, transparent 78%);
+    padding: 10px 8px 12px;
+  }
+  #films-grid .o-detail__tile .o-detail__tile-box,
+  #commercials-grid .o-detail__tile .o-detail__tile-box {
+    border: none;
+    background: transparent;
+    backdrop-filter: none;
+    padding: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+  #films-grid .o-detail__tile-name,
+  #commercials-grid .o-detail__tile-name {
+    font-size: 14px;
+    margin-bottom: 4px;
+    line-height: 1.15;
+  }
+  #films-grid .o-detail__tile-house,
+  #commercials-grid .o-detail__tile-house {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    margin-bottom: 3px;
+    line-height: 1.25;
+  }
+  #films-grid .o-detail__tile-role,
+  #commercials-grid .o-detail__tile-role {
+    font-size: 9px;
+    letter-spacing: 0.06em;
+  }
+  #films-grid .o-detail__tile-badge {
+    font-size: 8px;
+    margin-bottom: 5px;
+  }
+}
+
+/* ══════════════════════════════════════════════════
    LG — Small laptops 1024–1279px
    13" MacBook, Surface Pro, iPad Pro 12.9" landscape
 ══════════════════════════════════════════════════ */
@@ -873,11 +943,49 @@ html, body { max-width: 100%; overflow-x: hidden; }
    TOUCH DEVICES — disable hover-only states
 ══════════════════════════════════════════════════ */
 @media (hover: none) {
-  .o-work__square:hover .o-work__square-overlay { opacity: 0; }
+  .o-work__square .o-work__square-overlay {
+    opacity: 1;
+    background: linear-gradient(to top, rgba(28,21,16,0.92) 0%, rgba(28,21,16,0.35) 50%, transparent 72%);
+    align-items: flex-end;
+    padding: 18px 16px;
+  }
+  .o-work__square:hover .o-work__square-overlay { opacity: 1; }
+  .o-work__square-box { border: none; background: transparent; backdrop-filter: none; padding: 0; }
+  .o-work__square-count { color: rgba(253,248,238,0.7); }
   .o-credits__item:hover::before { transform: translateX(-101%); }
   .o-credits__item:hover .o-credits__link { color: var(--ink); padding-left: 0; }
   .o-credits__item:hover .o-credits__meta { color: var(--ink-mid); }
-  .o-detail__tile:hover .o-detail__tile-hover { opacity: 0; }
+  #films-grid .o-detail__tile .o-detail__tile-hover,
+  #commercials-grid .o-detail__tile .o-detail__tile-hover {
+    opacity: 1;
+    align-items: flex-end;
+    justify-content: stretch;
+    background: linear-gradient(to top, rgba(10,9,5,0.94) 0%, rgba(10,9,5,0.55) 50%, transparent 78%);
+    padding: 8px 6px 10px;
+  }
+  #films-grid .o-detail__tile-hover--always {
+    align-items: flex-end;
+    justify-content: stretch;
+    background: linear-gradient(to top, rgba(10,9,5,0.94) 0%, rgba(10,9,5,0.55) 50%, transparent 78%);
+    padding: 8px 6px 10px;
+  }
+  #films-grid .o-detail__tile .o-detail__tile-box,
+  #commercials-grid .o-detail__tile .o-detail__tile-box {
+    border: none;
+    background: transparent;
+    backdrop-filter: none;
+    padding: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+  #films-grid .o-detail__tile-name,
+  #commercials-grid .o-detail__tile-name { font-size: 12px; margin-bottom: 3px; line-height: 1.15; }
+  #films-grid .o-detail__tile-house,
+  #commercials-grid .o-detail__tile-house { font-size: 7px; letter-spacing: 0.08em; margin-bottom: 2px; }
+  #films-grid .o-detail__tile-role,
+  #commercials-grid .o-detail__tile-role { font-size: 7px; }
+  #films-grid .o-detail__tile-badge { font-size: 7px; margin-bottom: 4px; }
+  .o-detail__tile:hover .o-detail__tile-hover { opacity: 1; }
   .o-detail__tile:hover .o-detail__tile-bg { transform: none; }
 }
 
@@ -936,6 +1044,67 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .o-concept__grid { grid-template-columns: repeat(2,1fr); }
   .o-concept-zoom__img { max-width: 96vw; max-height: 80vh; }
   .o-concept-zoom__prev, .o-concept-zoom__next { font-size: 36px; padding: 0 10px; }
+
+  .o-work__square .o-work__square-overlay { padding: 18px 16px; }
+
+  #films-grid .o-detail__tile .o-detail__tile-hover,
+  #commercials-grid .o-detail__tile .o-detail__tile-hover,
+  #films-grid .o-detail__tile-hover--always {
+    padding: 8px 6px 10px;
+  }
+  #films-grid .o-detail__tile-name,
+  #commercials-grid .o-detail__tile-name { font-size: 12px; margin-bottom: 3px; }
+  #films-grid .o-detail__tile-house,
+  #commercials-grid .o-detail__tile-house { font-size: 7px; margin-bottom: 2px; }
+  #films-grid .o-detail__tile-role,
+  #commercials-grid .o-detail__tile-role { font-size: 7px; }
+  #films-grid .o-detail__tile-badge { font-size: 7px; margin-bottom: 4px; }
+}
+
+/* iPad Pro 12.9" landscape & other touch devices wider than 1023px */
+@media (min-width: 1024px) and (pointer: coarse) {
+  .o-work__square-num { display: block; color: var(--terracotta); opacity: 0.95; }
+  .o-work__square .o-work__square-overlay {
+    opacity: 1;
+    background: linear-gradient(to top, rgba(28,21,16,0.92) 0%, rgba(28,21,16,0.35) 50%, transparent 72%);
+    align-items: flex-end;
+    padding: 24px 20px;
+  }
+  .o-work__square:hover .o-work__square-overlay { opacity: 1; }
+  .o-work__square-box { border: none; background: transparent; backdrop-filter: none; padding: 0; }
+  .o-work__square-count { color: rgba(253,248,238,0.7); }
+
+  #films-grid .o-detail__tile .o-detail__tile-hover,
+  #commercials-grid .o-detail__tile .o-detail__tile-hover {
+    opacity: 1;
+    align-items: flex-end;
+    justify-content: stretch;
+    background: linear-gradient(to top, rgba(10,9,5,0.94) 0%, rgba(10,9,5,0.55) 50%, transparent 78%);
+    padding: 12px 10px 14px;
+  }
+  #films-grid .o-detail__tile-hover--always {
+    align-items: flex-end;
+    justify-content: stretch;
+    background: linear-gradient(to top, rgba(10,9,5,0.94) 0%, rgba(10,9,5,0.55) 50%, transparent 78%);
+    padding: 12px 10px 14px;
+  }
+  #films-grid .o-detail__tile .o-detail__tile-box,
+  #commercials-grid .o-detail__tile .o-detail__tile-box {
+    border: none;
+    background: transparent;
+    backdrop-filter: none;
+    padding: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+  #films-grid .o-detail__tile-name,
+  #commercials-grid .o-detail__tile-name { font-size: 16px; margin-bottom: 4px; line-height: 1.15; }
+  #films-grid .o-detail__tile-house,
+  #commercials-grid .o-detail__tile-house { font-size: 10px; letter-spacing: 0.08em; margin-bottom: 3px; }
+  #films-grid .o-detail__tile-role,
+  #commercials-grid .o-detail__tile-role { font-size: 10px; }
+  #films-grid .o-detail__tile-badge { font-size: 9px; margin-bottom: 5px; }
+  .o-detail__tile:hover .o-detail__tile-hover { opacity: 1; }
 }
 </style>
 </head>
@@ -1264,7 +1433,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
         <div class="o-work__squares a-reveal">
 
       <!-- FEATURE FILMS CAROUSEL -->
-      <div class="o-work__square" onclick="openDetail('films')" id="carousel-films">
+      <div class="o-work__square" onclick="openDetail('films')" id="carousel-films" role="button" tabindex="0" aria-label="Feature Films — 10 films">
         <div class="o-work__square-carousel" id="carousel-films-track">
           <div class="o-work__square-slide"><img src="https://res.cloudinary.com/do4ajkxkz/image/upload/c_fill,g_auto,ar_1:1,f_auto,q_auto/1_zxe9mx" alt=""/></div>
           <div class="o-work__square-slide"><img src="https://res.cloudinary.com/do4ajkxkz/image/upload/c_fill,g_auto,ar_1:1,f_auto,q_auto/1_gcvbra" alt=""/></div>
@@ -1277,6 +1446,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
         </div>
         <div class="o-work__square-overlay">
           <div class="o-work__square-box">
+            <span class="o-work__square-num">01</span>
             <span class="o-work__square-title">Feature Films</span>
             <span class="o-work__square-count">10 films · Bollywood &amp; Hollywood</span>
           </div>
@@ -1284,7 +1454,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
       </div>
 
       <!-- COMMERCIALS CAROUSEL -->
-      <div class="o-work__square" onclick="openDetail('commercials')" id="carousel-commercials">
+      <div class="o-work__square" onclick="openDetail('commercials')" id="carousel-commercials" role="button" tabindex="0" aria-label="Commercials — 50 plus spots">
         <div class="o-work__square-carousel" id="carousel-commercials-track">
           <div class="o-work__square-slide"><img src="https://res.cloudinary.com/do4ajkxkz/image/upload/c_fill,g_auto,ar_1:1,f_auto,q_auto/Spotify_Chapter_1_de44lk" alt=""/></div>
           <div class="o-work__square-slide"><img src="https://res.cloudinary.com/do4ajkxkz/image/upload/c_fill,g_auto,ar_1:1,f_auto,q_auto/TATA_AIG_Chapter_1_kugse7" alt=""/></div>
@@ -1297,6 +1467,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
         </div>
         <div class="o-work__square-overlay">
           <div class="o-work__square-box">
+            <span class="o-work__square-num">02</span>
             <span class="o-work__square-title">Commercials</span>
             <span class="o-work__square-count">50+ spots · National brands</span>
           </div>
@@ -1304,7 +1475,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
       </div>
 
       <!-- CONCEPTS CAROUSEL -->
-      <div class="o-work__square" onclick="openDetail('concepts')" id="carousel-concepts">
+      <div class="o-work__square" onclick="openDetail('concepts')" id="carousel-concepts" role="button" tabindex="0" aria-label="Concepts — design work">
         <div class="o-work__square-carousel" id="carousel-concepts-track">
           <div class="o-work__square-slide"><img src="https://res.cloudinary.com/do4ajkxkz/image/upload/c_fill,g_auto,ar_1:1,f_auto,q_auto/1_aqsdzd" alt=""/></div>
           <div class="o-work__square-slide"><img src="https://res.cloudinary.com/do4ajkxkz/image/upload/c_fill,g_auto,ar_1:1,f_auto,q_auto/3_fqlohy" alt=""/></div>
@@ -1317,6 +1488,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
         </div>
         <div class="o-work__square-overlay">
           <div class="o-work__square-box">
+            <span class="o-work__square-num">03</span>
             <span class="o-work__square-title">Concepts</span>
             <span class="o-work__square-count">Design work</span>
           </div>
@@ -1459,50 +1631,42 @@ html, body { max-width: 100%; overflow-x: hidden; }
     <!-- UPCOMING — non-clickable -->
     <div class="o-detail__tile" style="cursor:default">
       <div class="o-detail__tile-bg"><img src="https://res.cloudinary.com/do4ajkxkz/image/upload/c_fill,g_auto,ar_1:1,f_auto,q_auto/WhatsApp_Image_2026-05-23_at_4.03.11_PM_fudaak" style="width:100%;height:100%;object-fit:cover"/></div>
-      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(10,9,5,0.45);text-align:center;padding:24px;">
-        <div class="o-detail__tile-box" style="text-align:center">
-          <span style="font-family:var(--font-sans);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracotta);display:block;margin-bottom:10px">Upcoming</span>
-          <span class="o-detail__tile-name">Gandhi</span>
-          <span class="o-detail__tile-house">TV Series · Applause Entertainment</span>
-          <span class="o-detail__tile-role">Assistant Art Director</span>
-        </div>
-      </div>
+      <div class="o-detail__tile-hover o-detail__tile-hover--always"><div class="o-detail__tile-box" style="text-align:center">
+        <span class="o-detail__tile-badge">Upcoming</span>
+        <span class="o-detail__tile-name">Gandhi</span>
+        <span class="o-detail__tile-house">TV Series · Applause Entertainment</span>
+        <span class="o-detail__tile-role">Assistant Art Director</span>
+      </div></div>
     </div>
 
     <div class="o-detail__tile" style="cursor:default">
       <div class="o-detail__tile-bg"><img src="https://res.cloudinary.com/do4ajkxkz/image/upload/c_fill,g_auto,ar_1:1,f_auto,q_auto/WhatsApp_Image_2026-05-23_at_4.24.29_PM_frkat6" style="width:100%;height:100%;object-fit:cover"/></div>
-      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(10,9,5,0.45);text-align:center;padding:24px;">
-        <div class="o-detail__tile-box" style="text-align:center">
-          <span style="font-family:var(--font-sans);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracotta);display:block;margin-bottom:10px">Upcoming</span>
-          <span class="o-detail__tile-name">Ikroop</span>
-          <span class="o-detail__tile-house">Jio Studios / AAZ Films</span>
-          <span class="o-detail__tile-role">Assistant Production Designer</span>
-        </div>
-      </div>
+      <div class="o-detail__tile-hover o-detail__tile-hover--always"><div class="o-detail__tile-box" style="text-align:center">
+        <span class="o-detail__tile-badge">Upcoming</span>
+        <span class="o-detail__tile-name">Ikroop</span>
+        <span class="o-detail__tile-house">Jio Studios / AAZ Films</span>
+        <span class="o-detail__tile-role">Assistant Production Designer</span>
+      </div></div>
     </div>
 
     <div class="o-detail__tile" style="cursor:default">
       <div class="o-detail__tile-bg"><img src="https://res.cloudinary.com/do4ajkxkz/image/upload/c_fill,g_auto,ar_1:1,f_auto,q_auto/WhatsApp_Image_2026-05-23_at_4.28.55_PM_w31wwe" style="width:100%;height:100%;object-fit:cover"/></div>
-      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(10,9,5,0.45);text-align:center;padding:24px;">
-        <div class="o-detail__tile-box" style="text-align:center">
-          <span style="font-family:var(--font-sans);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracotta);display:block;margin-bottom:10px">Upcoming</span>
-          <span class="o-detail__tile-name">Party Animals</span>
-          <span class="o-detail__tile-house">Saregama India / Yoodlee Films</span>
-          <span class="o-detail__tile-role">Art Director</span>
-        </div>
-      </div>
+      <div class="o-detail__tile-hover o-detail__tile-hover--always"><div class="o-detail__tile-box" style="text-align:center">
+        <span class="o-detail__tile-badge">Upcoming</span>
+        <span class="o-detail__tile-name">Party Animals</span>
+        <span class="o-detail__tile-house">Saregama India / Yoodlee Films</span>
+        <span class="o-detail__tile-role">Art Director</span>
+      </div></div>
     </div>
 
     <div class="o-detail__tile" style="cursor:default">
       <div class="o-detail__tile-bg"><img src="https://res.cloudinary.com/do4ajkxkz/image/upload/c_fill,g_auto,ar_1:1,f_auto,q_auto/WhatsApp_Image_2026-05-23_at_4.30.23_PM_akiuws" style="width:100%;height:100%;object-fit:cover"/></div>
-      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(10,9,5,0.45);text-align:center;padding:24px;">
-        <div class="o-detail__tile-box" style="text-align:center">
-          <span style="font-family:var(--font-sans);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracotta);display:block;margin-bottom:10px">Upcoming</span>
-          <span class="o-detail__tile-name">Blessed be the Evil</span>
-          <span class="o-detail__tile-house">Lions Roar Productions</span>
-          <span class="o-detail__tile-role">Art Director</span>
-        </div>
-      </div>
+      <div class="o-detail__tile-hover o-detail__tile-hover--always"><div class="o-detail__tile-box" style="text-align:center">
+        <span class="o-detail__tile-badge">Upcoming</span>
+        <span class="o-detail__tile-name">Blessed be the Evil</span>
+        <span class="o-detail__tile-house">Lions Roar Productions</span>
+        <span class="o-detail__tile-role">Art Director</span>
+      </div></div>
     </div>
 
   </div>
