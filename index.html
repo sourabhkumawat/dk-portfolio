@@ -460,11 +460,13 @@ body { background: var(--parchment); color: var(--ink); font-family: var(--font-
 /* ════════════════════════════════════════════════
    ORGANISMS — PRESS BAR
 ════════════════════════════════════════════════ */
-.o-press { position: relative; background: var(--terracotta); padding: 48px var(--page-margin); text-align: center; overflow: hidden; }
+.o-press { position: relative; background: var(--terracotta); padding: 40px 0; text-align: center; overflow: hidden; }
 .o-press__texture { position: absolute; inset: 0; opacity: 0.03; background-image: repeating-linear-gradient(0deg,var(--parchment) 0,var(--parchment) 0.5px,transparent 0,transparent 40px); }
-.o-press__names { display: flex; justify-content: center; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 28px; }
-.o-press__name { font-family: var(--font-serif); font-size: 15px; font-weight: 300; color: rgba(253,248,238,0.55); letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
-.o-press__name:hover { color: rgba(253,248,238,1); }
+.o-press__label { position: relative; z-index: 1; font-family: var(--font-sans); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(253,248,238,0.85); margin-bottom: 24px; }
+.o-press__marquee { position: relative; z-index: 1; overflow: hidden; max-width: 100%; }
+.o-press__track { display: inline-flex; align-items: center; gap: clamp(32px, 5vw, 72px); animation: ticker 45s linear infinite; -webkit-animation: ticker 45s linear infinite; padding-right: clamp(32px, 5vw, 72px); }
+.o-press__name { font-family: var(--font-serif); font-size: clamp(15px, 2vw, 22px); font-weight: 300; color: rgba(253,248,238,0.9); letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; transition: color 0.2s; }
+.o-press__name:hover { color: var(--warm-white); }
 
 /* ════════════════════════════════════════════════
    ORGANISMS — SOFTWARE SECTION
@@ -599,9 +601,10 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .o-values__word2 { font-size: 14px; }
   .o-values__marquee-wrap { overflow: hidden; max-width: 100vw; }
 
-  .o-press { padding: 40px 14px; }
-  .o-press__names { gap: 14px; flex-direction: column; align-items: center; }
+  .o-press { padding: 32px 0; }
+  .o-press__label { font-size: 9px; letter-spacing: 0.16em; margin-bottom: 18px; }
   .o-press__name { font-size: 14px; }
+  .o-press__track { gap: 28px; padding-right: 28px; }
 
   .o-cta { padding: 40px 14px; min-height: auto; }
   .o-cta__full { max-width: 100%; }
@@ -691,8 +694,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .o-values__word2 { font-size: 16px; }
   .o-values__marquee-wrap { overflow: hidden; max-width: 100vw; }
 
-  .o-press { padding: 44px 20px; }
-  .o-press__names { gap: 16px; flex-direction: column; align-items: center; }
+  .o-press { padding: 36px 0; }
 
   .o-cta { padding: 48px 20px; min-height: auto; }
   .o-cta__full { max-width: 100%; }
@@ -758,7 +760,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .o-values__word { font-size: 26px; }
   .o-values__word2 { font-size: 20px; }
 
-  .o-press { padding: 48px 36px; }
+  .o-press { padding: 44px 0; }
 
   .o-cta { padding: 60px 36px; }
   .o-cta__heading { font-size: 30px !important; }
@@ -1736,6 +1738,29 @@ html, body { max-width: 100%; overflow-x: hidden; }
   <button class="o-video-modal__close" onclick="closeVideoModal()">×</button>
   <iframe class="o-video-modal__player" id="video-player" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>
+
+<section class="o-press a-reveal" id="production-houses" aria-label="Production houses worked with">
+  <div class="o-press__texture" aria-hidden="true"></div>
+  <p class="o-press__label">Production Houses Worked With</p>
+  <div class="o-press__marquee">
+    <div class="o-press__track">
+      <span class="o-press__name">Dharma Productions</span>
+      <span class="o-press__name">Nadiadwala Grandson Entertainment</span>
+      <span class="o-press__name">Excel Entertainment</span>
+      <span class="o-press__name">Applause Entertainment</span>
+      <span class="o-press__name">Jio Studios</span>
+      <span class="o-press__name">Viacom18 Studios</span>
+      <span class="o-press__name">Lions Roar Productions</span>
+      <span class="o-press__name">Dharma Productions</span>
+      <span class="o-press__name">Nadiadwala Grandson Entertainment</span>
+      <span class="o-press__name">Excel Entertainment</span>
+      <span class="o-press__name">Applause Entertainment</span>
+      <span class="o-press__name">Jio Studios</span>
+      <span class="o-press__name">Viacom18 Studios</span>
+      <span class="o-press__name">Lions Roar Productions</span>
+    </div>
+  </div>
+</section>
 
 <section class="o-cta" id="contact" style="background:var(--espresso); min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding: var(--section-pad) var(--page-margin); position:relative; overflow:hidden;">
 
